@@ -16,7 +16,13 @@ class UserEventListener
         );
     }
 
-    public function onUserCreated(\App\Events\UserCreated $eveent) {
-
+    public function onUserCreated(\App\Events\UserCreated $event) {
+        $user = $event->user;
+        \Mail::send('emails.auth.confirm', compact('user'), function ($message) use ($user) {
+           $message->to($user->email);
+           $message->subject(
+               sprintf('[%s] 회원 가입을 확인해 주세요.', config('app.name'))
+           );
+        });
     }
 }

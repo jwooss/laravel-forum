@@ -34,10 +34,6 @@ class UsersController extends Controller
         ]);
 
         event(new \App\Events\UserCreated($user));
-        \Mail::send('emails.auth.confirm', compact('user'), function ($message) use ($user) {
-            $message->to($user->email);
-            $message->subject(sprintf('[$s] 회원 가입을 확인해주세요.', config('app.name')));
-        });
 
         return $this->responseCreated('가입하신 메일 계정으로 인증 url을 전송하였습니다.');
     }
