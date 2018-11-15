@@ -47,3 +47,14 @@ Route::post('auth/reset', [
     'as' => 'reset.store',
     'uses' => 'PasswordsController@postReset'
 ]);
+
+Route::get('mail', function () {
+    $text = "메일 발송 테스트";
+
+    return Mail::send('emails.auth.confirm', [],
+        function ($message) {
+            $message->to('wodn4131@naver.com');
+            $message->subject('새글이 등록');
+        }
+    );
+});
