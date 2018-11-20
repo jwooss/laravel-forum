@@ -27,12 +27,12 @@ class SessionsController extends Controller
             return $this->respondError('이메일 또는 비밀번호가 맞지 않습니다.');
         }
 
-        if (! auth()->user()->activated) {
+        if (!auth()->user()->activated) {
             auth()->logout();
             return $this->respondError('가입 확인해 주세요.');
         }
 
-        flash(auth()->user()->name. '님 환영합니다.');
+        flash(auth()->user()->name . '님 환영합니다.');
 
         return redirect()->intended('home');
     }
