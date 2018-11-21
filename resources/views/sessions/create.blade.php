@@ -18,10 +18,10 @@
         </div>
 
         <div class="form-group">
-            <a class="btn btn-default btn-lg btn-block" href="{{ route('social.login', ['github']) }}">
+            {{--<a class="btn btn-default btn-lg btn-block" href="{{ route('social.login', ['github']) }}">--}}
                 <strong>
                     <i class="fa fa-github"></i>
-                    {{ trans('auth.sessions.login_with_github') }}
+                    {{--{{ trans('auth.sessions.login_with_github') }}--}}
                 </strong>
             </a>
         </div>
@@ -68,7 +68,7 @@
             </p>
             <p class="text-center">
                 <small class="help-block">
-                    {{  trans('auth.sessions.caveat_for_social') }}
+{{--                    {{  trans('auth.sessions.caveat_for_social') }}--}}
                 </small>
             </p>
         </div>
