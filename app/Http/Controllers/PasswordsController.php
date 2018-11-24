@@ -32,14 +32,9 @@ class PasswordsController extends Controller
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
 
-        Mail::send('emails.passwords.reset', compact('token'), function ($message) use ($email) {
-            $message->to($email);
-            $message->subject(sprintf('[%s] 비밀번호를 초기화하세요', config('app.name')));
-        });
+        event(new \App\Events\PasswordRemindCreated($email, $token));
 
-        flash('비밀번호를 바꾸는 방법은 담은 이메을 발송했습니다. 메일박스를 확인해주세요');
-
-        return redirect('/');
+        return $this->responseCreated('비밀번호를 바꾸는 방법은 담은 이메을 발송했습니다. 메일박스를 확인해주세요');
     }
 
     public function getReset($token = null)
@@ -65,8 +60,20 @@ class PasswordsController extends Controller
 
         DB::table('password_resets')->whereToken($token)->delete();
 
-        flash('비밀번호를 바꾸었습니다. 새로운 비밀번호를 로그인 하세요');
+        return $this->responseCreated('비밀번호를 바꾸었습니다. 새로운 비밀번호를 로그인 하세요');
+    }
 
-        return redirect('/');
+    protected function responseCreated($message, $path = '/')
+    {
+        flash($message);
+
+        return redirect($path);
+    }
+
+    protected function responseError($message)
+    {
+        flash($message);
+
+        return back()->withInput();
     }
 }

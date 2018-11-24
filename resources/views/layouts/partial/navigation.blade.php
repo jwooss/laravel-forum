@@ -22,8 +22,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a href="{{ url('/auth/login') }}">Login</a></li>
-                    <li><a href="{{ url('/auth/register') }}">Register</a></li>
+                    <li><a href="{{ route('sessions.create') }}">Login</a></li>
+                    <li><a href="{{ route('users.create') }}">Register</a></li>
                 @else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -31,12 +31,12 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="{{ url('/auth/logout') }}"
+                                <a href="{{ route('sessions.destory') }}"
                                    onclick="event.preventDefault();
                                                    document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
-                                <form id="logout-form" action="{{ url('/auth/logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('sessions.destory') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </li>
