@@ -16,7 +16,7 @@ class PasswordsController extends Controller
 
     public function getRemind()
     {
-        return view('passwords.remind');
+        return view('emails.passwords.remind');
     }
 
     public function postRemind(Request $request)
@@ -37,7 +37,35 @@ class PasswordsController extends Controller
             $message->subject(sprintf('[%s] 비밀번호를 초기화하세요', config('app.name')));
         });
 
-        flash('비밀번호를 바꾸는 방법은 담은 이메이을 발송했습니다. 메일박스를 확인해주세요');
+        flash('비밀번호를 바꾸는 방법은 담은 이메을 발송했습니다. 메일박스를 확인해주세요');
+
+        return redirect('/');
+    }
+
+    public function getReset($token = null)
+    {
+        return view('passwords.reset', compact('token'));
+    }
+
+    public function postReset(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|exists:users',
+            'password' => 'required|confirmed',
+            'token' => 'required',
+        ]);
+
+        $token = $request->get('token');
+
+        if (!DB::table('password_resets')->whereToken($token)->first()) {
+            flash('URL이 정확하지 않습니다.');
+
+            return back()->withInput();
+        }
+
+        DB::table('password_resets')->whereToken($token)->delete();
+
+        flash('비밀번호를 바꾸었습니다. 새로운 비밀번호를 로그인 하세요');
 
         return redirect('/');
     }

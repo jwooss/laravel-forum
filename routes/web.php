@@ -27,7 +27,7 @@ Route::post('auth/login', [
 ]);
 Route::get('auth/logout', [
     'as' => 'sessions.destory',
-    'uses' => 'SessionsController@destory'
+    'uses' => 'SessionsController@destroy'
 ]);
 
 /*비밀번호 초기화*/
