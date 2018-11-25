@@ -18,10 +18,10 @@
         </div>
 
         <div class="form-group">
-            {{--<a class="btn btn-default btn-lg btn-block" href="{{ route('social.login', ['github']) }}">--}}
+            <a class="btn btn-default btn-lg btn-block" href="{{ route('social.login', ['github']) }}">
                 <strong>
                     <i class="fa fa-github"></i>
-                    {{--{{ trans('auth.sessions.login_with_github') }}--}}
+                    {{ trans('auth.sessions.login_with_github') }}
                 </strong>
             </a>
         </div>
@@ -32,7 +32,8 @@
         </div>
 
         <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-            <input type="email" name="email" class="form-control" placeholder="{{ trans('auth.form.email') }}" value="{{ old('email') }}" autofocus/>
+            <input type="email" name="email" class="form-control" placeholder="{{ trans('auth.form.email') }}"
+                   value="{{ old('email') }}" autofocus/>
             {!! $errors->first('email', '<span class="form-error">:message</span>') !!}
         </div>
 
@@ -68,7 +69,7 @@
             </p>
             <p class="text-center">
                 <small class="help-block">
-{{--                    {{  trans('auth.sessions.caveat_for_social') }}--}}
+                    {{  trans('auth.sessions.caveat_for_social') }}
                 </small>
             </p>
         </div>

@@ -26,7 +26,7 @@ Route::post('auth/login', [
     'uses' => 'SessionsController@store'
 ]);
 Route::get('auth/logout', [
-    'as' => 'sessions.destory',
+    'as' => 'sessions.destroy',
     'uses' => 'SessionsController@destroy'
 ]);
 
@@ -46,4 +46,9 @@ Route::get('auth/reset/{token}', [
 Route::post('auth/reset', [
     'as' => 'reset.store',
     'uses' => 'PasswordsController@postReset'
+]);
+
+Route::get('social/{provider}', [
+    'as' => 'social.login',
+    'uses' => 'SocialController@execute'
 ]);
