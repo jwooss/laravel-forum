@@ -19,10 +19,7 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        $socialUser = \App\User::whereEmail($request->input('email'))
-            ->whereNull('password')->first();
-
-        if ($socialUser) {
+        if ($socialUser = \App\User::socialUser($request->get('email'))->first()) {
             return $this->updateSocialAccount($request, $socialUser);
         }
 
