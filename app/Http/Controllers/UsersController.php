@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
@@ -19,6 +20,7 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+        Log::debug($request);
         if ($socialUser = \App\User::socialUser($request->get('email'))->first()) {
             return $this->updateSocialAccount($request, $socialUser);
         }
@@ -87,8 +89,8 @@ class UsersController extends Controller
 
     protected function responseCreated($message, $path = '/')
     {
+        Log::debug($message);
         flash($message);
-
         return redirect($path);
     }
 }
